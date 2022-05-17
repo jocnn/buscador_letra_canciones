@@ -1,7 +1,10 @@
 import { useState } from "react"
+import useLetras from "../hooks/useLetras"
 
 const Formulario = () => {
   
+  const { setAlerta } = useLetras()
+
   const [ busqueda, setBusqueda ] = useState({
     artista: '',
     cancion: ''
@@ -13,9 +16,25 @@ const Formulario = () => {
       [e.target.name]: e.target.value
     })
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    if (Object.values(busqueda).includes('')) {
+      setAlerta('Coloca nombre de artísta o canción')
+
+      setTimeout(() => {
+        setAlerta('')
+      }, 3000);
+      return
+    }
+
+  }
   
   return (
-    <form>
+    <form
+      onSubmit={handleSubmit}
+    >
       <legend>Busca por Artistas y Canción</legend>
 
       <div className="form-grid">
