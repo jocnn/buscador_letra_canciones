@@ -2,14 +2,15 @@ import useLetras from "../hooks/useLetras"
 
 const Letra = () => {
   
-  const { letra } = useLetras()
+  const { letra, cargando } = useLetras()
   
-  console.info(letra)
+  //console.info(letra)
   
   return (
-    <div className="letra">
-      {letra}
-    </div>
+    cargando ? 'Cargando...' : 
+      <div className="letra">
+        {letra}
+      </div>
   )
 }
 

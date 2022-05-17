@@ -6,7 +6,7 @@ import Letra from "./Letra"
 
 const AppLetras = () => {
 
-  const { alerta, letra } = useLetras()
+  const { alerta, letra, cargando } = useLetras()
 
   return (
     <div>
@@ -20,7 +20,8 @@ const AppLetras = () => {
             <Alerta>{alerta}</Alerta> : 
             letra ? 
               <Letra /> : 
-              <p className="text-center">Busca letras de tus artistas favoritos</p>
+              cargando ? 'Cargando...' :
+                <p className="text-center">Busca letras de tus artistas favoritos</p>
         }
       </main>
 
