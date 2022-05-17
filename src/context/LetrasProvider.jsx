@@ -7,21 +7,30 @@ const LetrasProvider = ({children}) => {
 
   const [ alerta, setAlerta ] = useState('')
   const [ letra, setLetra ] = useState('')
+  const [ cargando, setCargando ] = useState(false)
 
   const busquedaLetra = async busqueda => {
     
+    setCargando(true)
+
     try {
       const { artista, cancion } = busqueda
       const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`
       const { data } = await axios(url)
-      console.log(data.lyrics)
+      //console.info(data.status)
       
       setLetra(data.lyrics)
-      
+      setAlerta('')
     } catch (error) {
-      console.error(error)
+      setAlerta('Letra no encontrada')
+
+      setTimeout(() => {
+        setAlerta('')
+      }, 3000);
+      //console.error(error)
     }
 
+    setCargando(false)
   }
 
   return (
@@ -30,7 +39,8 @@ const LetrasProvider = ({children}) => {
         alerta,
         setAlerta,
         busquedaLetra,
-        letra
+        letra,
+        cargando
       }}
     >
       {children}
